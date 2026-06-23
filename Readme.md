@@ -1,9 +1,9 @@
-warehouse-network-carrier-performance-analytics-platform
+# Warehouse Network Carrier Performance Analytics Platform
 
-#project Structure
+## Project Structure
 
-
-your-project-name/
+```text
+warehouse-network-carrier-performance-analytics-platform/
 ├── README.md
 ├── documentation/
 │   └── Project_Documentation.docx
@@ -23,3 +23,26 @@ your-project-name/
 ├── testing/
 │   └── test_cases.xlsx
 └── visualizations/
+```
+
+## Architecture
+
+```text
+Source CSV Files
+       ↓
+Amazon S3 (Raw Zone)
+       ↓
+S3 PUT Event
+       ↓
+AWS Lambda
+       ↓
+PySpark ETL
+(Clean / Join / Aggregate)
+       ↓
+Amazon Redshift
+(Data Warehouse)
+       ↓
+SQL Analytics
+       ↓
+Matplotlib / Seaborn / Streamlit
+```
