@@ -2,3 +2,5 @@ boto3
 pandas
 dotenv
 openpyxl
+pyspark
+psycopg2-binary
