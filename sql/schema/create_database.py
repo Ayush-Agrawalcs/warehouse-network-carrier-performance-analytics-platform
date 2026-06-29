@@ -1,24 +1,17 @@
-import psycopg2
-from dotenv import load_dotenv
-import os
+from db_connection import get_connection
 
-load_dotenv()
-
-conn = psycopg2.connect(
-    host=os.getenv("DB_HOST"),
-    port=os.getenv("DB_PORT"),
-    database="postgres",
-    user=os.getenv("DB_USER"),
-    password=os.getenv("DB_PASSWORD")
-)
+conn = get_connection()
 
 conn.autocommit = True
 
 cur = conn.cursor()
 
-db_name = os.getenv("DB_NAME")
+db_name = "warehouse_db"   # ya os.getenv("DB_NAME")
 
-cur.execute(f"SELECT 1 FROM pg_database WHERE datname='{db_name}'")
+cur.execute(
+    "SELECT 1 FROM pg_database WHERE datname = %s",
+    (db_name,)
+)
 
 exists = cur.fetchone()
 
