@@ -1,9 +1,10 @@
 from psycopg2.extras import execute_values
 import sys
 import os
+from pyspark.sql.functions import col
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.append(PROJECT_ROOT)
+PROJECT_ROOT = os.path.abspath( os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.insert(0, PROJECT_ROOT)
 
 from sql.schema.db_connection import get_connection
 
@@ -40,12 +41,6 @@ def load_dim_warehouses(conn, dim_warehouses):
     cur.close()
 
     print("dim_warehouses Loaded")
-
-
-# ===============================
-# DIM PRODUCTS
-# ===============================
-
 def load_dim_products(conn, dim_products):
 
     cur = conn.cursor()
@@ -72,10 +67,6 @@ def load_dim_products(conn, dim_products):
 
     print("dim_products Loaded")
 
-
-# ===============================
-# DIM CARRIERS
-# ===============================
 
 def load_dim_carriers(conn, dim_carriers):
 
@@ -105,10 +96,6 @@ def load_dim_carriers(conn, dim_carriers):
     cur.close()
 
     print("dim_carriers Loaded")
-
-    # ===============================
-# BRIDGE TABLE
-# ===============================
 
 def load_bridge_products_per_plant(
     conn,
@@ -142,10 +129,6 @@ def load_bridge_products_per_plant(
 
     print("bridge_products_per_plant Loaded")
 
-
-# ===============================
-# FACT ORDERS
-# ===============================
 
 def load_fact_orders(
     conn,
@@ -187,10 +170,6 @@ def load_fact_orders(
 
     print("fact_orders Loaded")
 
-    # ===============================
-# WAREHOUSE HEALTH
-# ===============================
-
 def load_warehouse_health(
     conn,
     warehouse_health
@@ -221,11 +200,6 @@ def load_warehouse_health(
     cur.close()
 
     print("warehouse_health Loaded")
-
-
-# ===============================
-# CARRIER PERFORMANCE
-# ===============================
 
 def load_carrier_performance(
     conn,
@@ -258,11 +232,6 @@ def load_carrier_performance(
 
     print("carrier_performance Loaded")
 
-
-# ===============================
-# ORDER ROUTING PRIORITY
-# ===============================
-
 def load_order_routing_priority(
     conn,
     order_routing_priority
@@ -282,6 +251,15 @@ def load_order_routing_priority(
         VALUES %s;
     """
 
+    # Select only the columns that exist in the table
+    order_routing_priority = order_routing_priority.select(
+        col("order_id"),
+        col("utilization_pct"),
+        col("tpt_day_cnt").alias("estimated_transit_days"),
+        col("risk_score"),
+        col("risk_rank")
+    )
+
     data = dataframe_to_tuples(order_routing_priority)
 
     execute_values(
@@ -294,10 +272,6 @@ def load_order_routing_priority(
 
     print("order_routing_priority Loaded")
 
-
-# ===============================
-# MASTER LOADER
-# ===============================
 
 def load_to_postgres(
     dim_warehouses,
@@ -338,6 +312,19 @@ def load_to_postgres(
             conn,
             fact_orders
         )
+        cur = conn.cursor()
+
+        cur.execute("SELECT COUNT(*) FROM fact_orders;")
+        print("Fact Orders:", cur.fetchone())
+
+        cur.execute("""
+        SELECT COUNT(*)
+        FROM fact_orders
+        WHERE order_id = 1447138895;
+        """)
+        print("Specific Order:", cur.fetchone())
+
+        cur.close()
 
         load_warehouse_health(
             conn,

@@ -421,7 +421,7 @@ def main():
         carrier_performance,
         order_routing_priority
     ) = create_analytics_tables(
-        final_df
+        final_df,dim_carriers,fact_orders
     )
 
     write_to_s3(
@@ -434,6 +434,8 @@ def main():
         carrier_performance,
         order_routing_priority
     )
+    order_routing_priority.filter(
+    order_routing_priority.order_id == 1447138895).show()
     load_to_postgres(
     dim_warehouses,
     dim_products,
