@@ -63,3 +63,15 @@ class Querries:
                 "left_anti"
             )
         )
+    def cost_by_tier(self, warehouse_health):
+        return (
+            warehouse_health
+            .withColumn(
+                "utilization_tier",
+                when(col("utilization_pct") < 50, "LOW")
+                .when(col("utilization_pct") < 80, "MEDIUM")
+                .otherwise("HIGH")
+            )
+            .groupBy("utilization_tier")
+            .agg(avg("unit_storage_cost").alias("avg_cost"))
+        )
