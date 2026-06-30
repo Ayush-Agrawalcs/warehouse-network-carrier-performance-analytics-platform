@@ -53,3 +53,13 @@ class Querries:
             "running_order_count",
             sum("order_id").over(window_spec)
         )
+    
+    def missing_carriers(self, final_df, freight):
+        return (
+            final_df.select("carrier").distinct()
+            .join(
+                freight.select("freight_carrier").distinct(),
+                final_df.carrier == freight.freight_carrier,
+                "left_anti"
+            )
+        )
