@@ -36,3 +36,11 @@ class Querries:
             "rank_by_speed",
             rank().over(window_spec)
         )
+    
+    def warehouse_overflow(self, final_df):
+        return (
+            final_df
+            .groupBy("plant_code", "order_date")
+            .count()
+            .filter(col("count") > 3)
+        )
