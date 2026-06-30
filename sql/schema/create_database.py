@@ -22,4 +22,4 @@ else:
     print(f"Database '{db_name}' created successfully.")
 
 cur.close()
-conn.close()
+conn.close() 
