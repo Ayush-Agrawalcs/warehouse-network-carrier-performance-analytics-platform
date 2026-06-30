@@ -75,3 +75,9 @@ class Querries:
             .groupBy("utilization_tier")
             .agg(avg("unit_storage_cost").alias("avg_cost"))
         )
+    def order_distribution(self, final_df):
+        return (
+            final_df
+            .groupBy("destination_port")
+            .agg(count("order_id").alias("total_orders"))
+        )
