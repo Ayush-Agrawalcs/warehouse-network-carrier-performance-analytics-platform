@@ -31,23 +31,21 @@ warehouse-network-carrier-performance-analytics-platform/
 ## Architecture
 
 ```text
-Source CSV Files
-       ↓
+CSV Files
+    ↓
 Amazon S3 (Raw Zone)
-       ↓
+    ↓
 S3 PUT Event
-       ↓
-AWS Lambda
-       ↓
-PySpark ETL
-(Clean / Join / Aggregate)
-       ↓
-Amazon Redshift
-(Data Warehouse)
-       ↓
-SQL Analytics
-       ↓
-Matplotlib / Seaborn / Streamlit
+    ↓
+AWS Lambda Trigger
+    ↓
+PySpark ETL Processing
+    ↓
+Amazon S3 (Curated Zone)
+    ↓
+Amazon RDS PostgreSQL
+    ↓
+SQL Analytics & Dashboards
 ```
 
 
