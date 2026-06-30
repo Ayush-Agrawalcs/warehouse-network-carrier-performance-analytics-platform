@@ -89,6 +89,13 @@ def main():
     print("Warehouse ETL Pipeline Completed Successfully")
     print("=" * 60)
 
-
-if __name__ == "__main__":
-    main()
+    return (
+    final_df,
+    warehouse_health,
+    carrier_performance,
+    order_routing_priority,
+    dim_warehouses,
+    dim_products,
+    dim_carriers,
+    fact_orders,
+    freight)
