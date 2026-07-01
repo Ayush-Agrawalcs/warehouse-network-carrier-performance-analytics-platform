@@ -49,6 +49,7 @@ def run():
 
 
     print("ALL QUERIES EXECUTED SUCCESSFULLY")
+    
 
 
 if __name__ == "__main__":
