@@ -118,8 +118,6 @@ class LogisticsVisualization:
 
         plt.title("Order Distribution By Destination Port")
         plt.show()
-
-    # 5. Transit Days Histogram
  
     def transit_days_histogram(self):
 
@@ -136,8 +134,6 @@ class LogisticsVisualization:
 
         plt.tight_layout()
         plt.show()
-
-    # 6. Carrier vs Port Heatmap
     
     def carrier_port_heatmap(self):
 
@@ -164,7 +160,6 @@ class LogisticsVisualization:
         plt.tight_layout()
         plt.show()
 
-     # 7. KPI Dashboard
     def kpi_cards(self):
 
         warehouses_above_90 = (
