@@ -60,5 +60,27 @@ class LogisticsVisualization:
         plt.tight_layout()
         plt.show()
 
-   
+
+    # 2. Warehouse Capacity Utilization
+    def warehouse_utilization(self):
+
+        plt.figure(figsize=(10, 5))
+
+        sns.barplot(
+            data=self.warehouse_health,
+            x="plant_code",
+            y="utilization_pct"
+        )
+
+        plt.title("Warehouse Capacity Utilization (%)")
+        plt.xlabel("Warehouse")
+        plt.ylabel("Utilization %")
+
+        plt.tight_layout()
+        plt.show()
+    
+
+
+
+
     
