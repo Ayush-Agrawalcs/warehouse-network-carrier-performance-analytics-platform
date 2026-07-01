@@ -3,29 +3,57 @@
 ## Project Structure
 
 ```text
-warehouse-network-carrier-performance-analytics-platform/
-├── README.md
-├── documentation/
-│   └── Project_Documentation.docx
-├── architecture/
-│   └── architecture_diagram.png
-├── datasets/
-│   ├── raw/
-│   └── sample/
-├── sql/
-│   ├── schema/
-│           └── create_database.py
-│           └── create_schema.py
-│           └── db_connection.py
-│   └── analysis_queries/
-├── pyspark/
-│   ├── extraction/
-│   ├── transformation/
-│   └── loading/
-├── screenshots/
-├── testing/
-│   └── test_cases.xlsx
-└── visualizations/
+.
+├── Readme.md
+├── architecture
+│   └── Project_architecture_diagram.png
+├── datasets
+│   ├── csv
+│   │   ├── FreightRates.csv
+│   │   ├── OrderList.csv
+│   │   ├── PlantPorts.csv
+│   │   ├── ProductsPerPlant.csv
+│   │   ├── VmiCustomers.csv
+│   │   ├── WhCapacities.csv
+│   │   └── WhCosts.csv
+│   └── raw
+│       └── Supply chain logisitcs problem.xlsx
+├── documentation
+│   └── Project_documentation.pdf
+├── lambda
+│   └── lambda_functions.py
+├── pyspark_folder
+│   └── elt
+│       ├── __pycache__
+│       ├── analytics.py
+│       ├── config.py
+│       ├── db_loader.py
+│       ├── dimensions.py
+│       ├── etl.py
+│       ├── extraction.py
+│       ├── loading.py
+│       ├── main.py
+│       └── transformation.py
+├── requirement.txt
+├── screenshots
+│   ├── Join_Tables.jpeg
+│   ├── Row_count.jpeg
+│   ├── file_load.jpeg
+│   └── s3_bucket_struct.png
+├── scripts
+│   └── read_data.py
+├── sql
+│   ├── analysis_queries
+│   │   └── querry.py
+│   └── schema
+│       ├── __pycache__
+│       ├── create_database.py
+│       ├── create_schema.py
+│       └── db_connection.py
+└── visualizations
+    ├── run_visualisation.py
+    └── visualise.py
+
 ```
 
 ## Architecture
