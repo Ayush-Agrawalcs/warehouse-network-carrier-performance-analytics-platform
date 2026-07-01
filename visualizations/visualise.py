@@ -137,6 +137,33 @@ class LogisticsVisualization:
         plt.tight_layout()
         plt.show()
 
+    # 6. Carrier vs Port Heatmap
+    
+    def carrier_port_heatmap(self):
+
+        heatmap_df = (
+            self.carrier_performance
+            .pivot_table(
+                values="avg_transit_days",
+                index="carrier_id",
+                columns="destination_port",
+                aggfunc="mean"
+            )
+        )
+
+        plt.figure(figsize=(12, 6))
+
+        sns.heatmap(
+            heatmap_df,
+            annot=True,
+            cmap="YlGnBu"
+        )
+
+        plt.title("Carrier vs Destination Port Transit Days")
+
+        plt.tight_layout()
+        plt.show()
+
 
 
 
