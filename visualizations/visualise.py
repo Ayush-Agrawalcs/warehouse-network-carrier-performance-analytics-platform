@@ -61,7 +61,7 @@ class LogisticsVisualization:
         plt.show()
 
 
-    # 2. Warehouse Capacity Utilization
+    # 2. A. Warehouse Capacity Utilization
     def warehouse_utilization(self):
 
         plt.figure(figsize=(10, 5))
@@ -79,6 +79,45 @@ class LogisticsVisualization:
         plt.tight_layout()
         plt.show()
     
+    # 2. B. Average Transit Days By Carrier
+    def carrier_transit_days(self):
+
+        plt.figure(figsize=(10, 5))
+
+        sns.barplot(
+            data=self.carrier_performance,
+            x="carrier_id",
+            y="avg_transit_days"
+        )
+
+        plt.title("Average Transit Days By Carrier")
+        plt.xlabel("Carrier")
+        plt.ylabel("Average Transit Days")
+
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
+
+    # 3. Order Distribution By Destination Port
+    def order_distribution_port(self):
+
+        port_data = (
+            self.fact_orders
+            .groupby("destination_port")
+            .size()
+            .reset_index(name="orders")
+        )
+
+        plt.figure(figsize=(8, 8))
+
+        plt.pie(
+            port_data["orders"],
+            labels=port_data["destination_port"],
+            autopct="%1.1f%%"
+        )
+
+        plt.title("Order Distribution By Destination Port")
+        plt.show()
 
 
 
