@@ -1,4 +1,10 @@
-from .config import CURATED_PATH
+
+import os
+import sys
+
+PROJECT_ROOT = os.path.abspath( os.path.join(os.path.dirname(__file__)))
+sys.path.insert(0, PROJECT_ROOT)
+from config import CURATED_PATH
 
 
 def write_to_s3(
